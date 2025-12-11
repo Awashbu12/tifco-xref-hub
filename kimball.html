@@ -185,21 +185,26 @@
     color: #94a3b8 !important;          /* Soft but visible */
   }
 }
-/* Centered toast popup */
+/* Centered toast overlay */
 .toast {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.toast-inner {
   background: #0ea5e9;
   color: white;
   padding: 12px 24px;
   border-radius: 12px;
   font-size: 16px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-  z-index: 9999;
+  box-shadow: 0 10px 25px rgba(15,23,42,0.4);
 }
 
 .toast.show {
@@ -347,6 +352,8 @@
     });
 }
   </script>
-  <div id="toast" class="toast">Copied!</div>
+  <div id="toast" class="toast">
+  <div class="toast-inner">Copied!</div>
+</div>
 </body>
 </html>
