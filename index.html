@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tifco Competitor Lookup Hub</title>
+
+  <meta name="theme-color" content="#004c97"/>
+  <link rel="manifest" href="manifest.webmanifest"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Tifco Tools"/>
+  <link rel="apple-touch-icon" href="icon-192.png"/>
+
+  <style>
+    :root {
+      --brand-blue: #004c97;
+      --brand-blue-dark: #003362;
+      --bg: #f3f4f7;
+      --card-bg: #ffffff;
+      --border-soft: #d0d4dc;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --radius: 16px;
+      --shadow-soft: 0 14px 30px rgba(15,23,42,0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(circle at top left, #ffffff, var(--bg));
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+    }
+
+    .shell {
+      max-width: 760px;
+      width: 100%;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      padding: 26px 24px 22px;
+      border: 1px solid rgba(148,163,184,0.35);
+    }
+
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      letter-spacing: 0.02em;
+      font-weight: 700;
+      color: var(--brand-blue-dark);
+      text-align: center;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 15px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 26px;
+    }
+
+    @media (min-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .tool-card {
+      border-radius: 14px;
+      border: 1px solid var(--border-soft);
+      padding: 16px 16px 14px;
+      background: #f9fafb;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: transform 0.1s ease, box-shadow 0.15s ease;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,76,151,0.2);
+    }
+
+    .tool-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--brand-blue-dark);
+    }
+
+    .tool-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    .tool-link a {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      text-decoration: none;
+      color: #ffffff;
+      background: var(--brand-blue);
+      padding: 8px 14px;
+      border-radius: 999px;
+      box-shadow: 0 4px 10px rgba(0,76,151,0.35);
+      transition: background 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .tool-link a:hover {
+      background: var(--brand-blue-dark);
+      box-shadow: 0 6px 14px rgba(0,76,151,0.4);
+    }
+
+    .icon {
+      font-size: 15px;
+    }
+
+    footer {
+      margin-top: 14px;
+      font-size: 11px;
+      text-align: center;
+      color: #9ca3af;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="shell">
+    <div class="card">
+      <header>
+        <h1>Tifco Competitor Crossovers</h1>
+        <p>Select a competitor to convert their part numbers into Tifco equivalents.</p>
+      </header>
+
+      <section class="grid">
+
+        <div class="tool-card">
+          <div class="tool-title">Kimball → Tifco</div>
+          <div class="tool-desc">Search Kimball Midwest part numbers and view the Tifco match instantly.</div>
+          <div class="tool-link">
+            <a href="kimball.html">
+              <span class="icon">↗</span> Open Kimball Tool
+            </a>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-title">Lawson → Tifco</div>
+          <div class="tool-desc">Enter Lawson product numbers to get the matching Tifco part.</div>
+          <div class="tool-link">
+            <a href="lawson.html">
+              <span class="icon">↗</span> Open Lawson Tool
+            </a>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-title">Würth → Tifco</div>
+          <div class="tool-desc">Convert Würth hardware numbers to Tifco part numbers.</div>
+          <div class="tool-link">
+            <a href="wurth.html">
+              <span class="icon">↗</span> Open Würth Tool
+            </a>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-title">Auveco → Tifco</div>
+          <div class="tool-desc">Search any Auveco number and instantly find the Tifco equivalent.</div>
+          <div class="tool-link">
+            <a href="auveco.html">
+              <span class="icon">↗</span> Open Auveco Tool
+            </a>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer>
+      Created by Alex Washburn — © 2024
+    </footer>
+  </div>
+</body>
+</html>
