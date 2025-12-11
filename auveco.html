@@ -184,6 +184,31 @@
     color: #94a3b8 !important;          /* Soft but visible */
   }
 }
+    /* Centered toast overlay */
+.toast {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.toast-inner {
+  background: #0ea5e9;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  box-shadow: 0 10px 25px rgba(15,23,42,0.4);
+}
+
+.toast.show {
+  opacity: 1;
+}
   </style>
 </head>
 <body>
@@ -313,12 +338,18 @@
     function copyTifco(value) {
   navigator.clipboard.writeText(value)
     .then(() => {
-      alert('Copied: ' + value);
+      const t = document.getElementById('toast');
+      if (!t) return;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 1500);
     })
     .catch(() => {
-      alert('Unable to copy');
+      alert('Copied: ' + value); // fallback if clipboard fails
     });
 }
   </script>
+  <div id="toast" class="toast">
+  <div class="toast-inner">Copied!</div>
+</div>
 </body>
 </html>
