@@ -174,7 +174,17 @@
 .copy-btn:active {
   opacity: 0.8;
 }
+@media (prefers-color-scheme: dark) {
+  input[type="text"] {
+    background: #1e293b !important;   /* A visible slate blue */
+    color: #f1f5f9 !important;         /* Bright text */
+    border-color: #475569 !important;
+  }
 
+  input[type="text"]::placeholder {
+    color: #94a3b8 !important;          /* Soft but visible */
+  }
+}
   </style>
 </head>
 <body>
