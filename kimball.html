@@ -185,22 +185,23 @@
     color: #94a3b8 !important;          /* Soft but visible */
   }
 }
-    /* Toast popup */
+/* Centered toast popup */
 .toast {
   position: fixed;
-  bottom: 30px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  background: #0ea5e9;        /* bright blue */
+  transform: translate(-50%, -50%);
+  background: #0ea5e9;
   color: white;
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 16px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
   z-index: 9999;
 }
+
 .toast.show {
   opacity: 1;
 }
