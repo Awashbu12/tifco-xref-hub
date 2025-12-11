@@ -171,6 +171,24 @@
     color: #6b7280;
   }
 }
+    #reportBtn {
+  background: #1a1a1a;
+  color: #f0f0f0;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+#reportBtn:hover {
+  background: #2c2c2c;
+}
+
+#reportBtn:active {
+  transform: scale(0.96);
+}
   </style>
   <script>
   if ('serviceWorker' in navigator) {
@@ -234,6 +252,30 @@
 
       </section>
     </div>
+    <button id="reportBtn">Report Wrong Part Number</button>
+
+<script>
+  document.getElementById("reportBtn").addEventListener("click", () => {
+    const email = "awashburn.tifco@gmail.com";
+    const query = document.getElementById("searchInput")?.value || "";
+    const subject = encodeURIComponent("Incorrect Part Number Found");
+
+    const body = encodeURIComponent(
+`Hey Alex,
+
+I found a wrong part number in the lookup.
+
+Search term: ${query}
+
+Correct or expected part:
+(Describe here)
+
+Thanks.`
+    );
+
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+  });
+</script>
     <div style="margin-top: 20px; text-align: center;">
   <p style="font-size: 14px; color: #555;">
     If you find this helpful, consider buying me a cup of coffee:
