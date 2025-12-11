@@ -127,6 +127,38 @@
       padding: 2px 4px;
       border-radius: 4px;
     }
+    /* Auto night mode based on device setting */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: radial-gradient(circle at top left, #020617, #020617);
+    color: #e5e7eb;
+  }
+  .card {
+    background: #020617;
+    border-color: #1f2937;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  }
+  input[type="text"] {
+    background: #020617;
+    color: #e5e7eb;
+    border-color: #374151;
+  }
+  input[type="text"]::placeholder {
+    color: #6b7280;
+  }
+  #result {
+    background: #0f172a;
+    border-color: #1d4ed8;
+    color: #e5e7eb;
+  }
+  .hint,
+  .subtitle {
+    color: #9ca3af;
+  }
+  footer {
+    color: #6b7280;
+  }
+}
   </style>
 </head>
 <body>
