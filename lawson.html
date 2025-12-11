@@ -161,6 +161,19 @@
         color: #6b7280;
       }
     }
+    .copy-btn {
+  margin-left: 10px;
+  padding: 4px 10px;
+  font-size: 13px;
+  border: none;
+  border-radius: 6px;
+  background: #004c97;
+  color: white;
+  cursor: pointer;
+}
+.copy-btn:active {
+  opacity: 0.8;
+}
 
   </style>
 </head>
@@ -263,7 +276,10 @@
 
       const tifco = mapping[key];
       if (tifco) {
-        setResult('<strong>Tifco part:</strong> ' + tifco);
+        setResult(
+  '<strong>Tifco part:</strong> ' + tifco +
+  ' <button class="copy-btn" onclick="copyTifco(\'' + tifco + '\')">Copy</button>'
+);
       } else {
         setResult('<strong>No match found</strong> for <code>' + key.replace(/</g,'&lt;') + '</code>');
       }
@@ -289,6 +305,15 @@
         if (e.key === 'Enter') lookup();
       });
     });
+    function copyTifco(value) {
+  navigator.clipboard.writeText(value)
+    .then(() => {
+      alert('Copied: ' + value);
+    })
+    .catch(() => {
+      alert('Unable to copy');
+    });
+}
   </script>
 </body>
 </html>
