@@ -276,25 +276,36 @@ Thanks.`
     window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
   });
 </script>
-    <div style="margin-top: 20px; text-align: center;">
+   <div style="margin-top: 20px; text-align: center;">
   <p style="font-size: 14px; color: #555;">
     If you find this helpful, consider buying me a cup of coffee:
   </p>
-  <a href="https://www.paypal.com/paypalme/awashbu12/5"
+
+  <!-- Primary Venmo button -->
+  <a href="https://venmo.com/?txn=pay&recipients=awashbu12&amount=5&note=Coffee"
      target="_blank"
      style="
        display: inline-block;
        margin-top: 6px;
-       padding: 10px 18px;
-       background: #ffd600;
-       color: #222;
-       border-radius: 8px;
+       padding: 12px 20px;
+       background: #3d95ce;
+       color: white;
+       border-radius: 10px;
        text-decoration: none;
        font-weight: 600;
-       border: 1px solid #e0c200;
+       border: 1px solid #2b7bb9;
      ">
-    ☕ Buy Me a Coffee
+    ☕ Buy Me a Coffee (Venmo)
   </a>
+
+  <!-- PayPal fallback -->
+  <div style="margin-top: 8px; font-size: 12px;">
+    <a href="https://www.paypal.com/paypalme/awashbu12/5"
+       target="_blank"
+       style="color: #6b7280; text-decoration: none;">
+      or use PayPal
+    </a>
+  </div>
 </div>
 
     <footer>
