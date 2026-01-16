@@ -17,6 +17,27 @@ function formatDate(iso) {
   const d = new Date(iso);
   return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
+function isoFromDateInput(dateStr) {
+  // dateStr is "YYYY-MM-DD"
+  if (!dateStr) return null;
+  const [y, m, d] = dateStr.split("-").map(Number);
+  if (!y || !m || !d) return null;
+
+  // Create a local-midnight Date, then convert to ISO
+  const dt = new Date(y, m - 1, d);
+  dt.setHours(0, 0, 0, 0);
+  return dt.toISOString();
+}
+
+function dateInputFromISO(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  // Convert to YYYY-MM-DD in local time
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
 
 function clampWeeks(n) {
   const x = Number(n);
@@ -92,9 +113,14 @@ function renderCustomerSelect(filterText = "") {
 
 function renderNextDuePreview() {
   const weeks = clampWeeks($("followWeeks").value);
-  const visitDate = new Date();
-  visitDate.setHours(0, 0, 0, 0);
-  const nextDue = computeNextDue(visitDate.toISOString(), weeks);
+
+  const visitDateISO = isoFromDateInput($("visitDate")?.value);
+  if (!visitDateISO) {
+    $("nextDuePreview").textContent = `Next due: —`;
+    return;
+  }
+
+  const nextDue = computeNextDue(visitDateISO, weeks);
   $("nextDuePreview").textContent = `Next due: ${formatDate(nextDue)}`;
 }
 
@@ -237,10 +263,13 @@ async function saveVisit() {
   const salesAmount = salesRaw === "" ? null : Number(salesRaw);
   const notes = $("visitNotes").value || "";
 
-  const visitDate = new Date();
-  visitDate.setHours(0, 0, 0, 0);
-  const visitDateISO = visitDate.toISOString();
-  const nextDue = computeNextDue(visitDateISO, weeks);
+  const visitDateISO = isoFromDateInput($("visitDate")?.value);
+if (!visitDateISO) {
+  setStatus($("logStatus"), "Pick a visit date.");
+  return;
+}
+
+const nextDue = computeNextDue(visitDateISO, weeks);
 
   const visit = {
     id: uid("visit"),
@@ -262,6 +291,14 @@ async function saveVisit() {
   $("salesAmount").value = "";
   $("visitNotes").value = "";
 
+  const vd = $("visitDate");
+if (vd) {
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  vd.value = dateInputFromISO(now.toISOString());
+}
+renderNextDuePreview();
+
   setStatus($("logStatus"), `Saved. Next due: ${formatDate(nextDue)}`);
   await refreshAll();
 }
@@ -274,6 +311,7 @@ function wireTabs() {
 
 function wireWeeks() {
   $("followWeeks").addEventListener("input", renderNextDuePreview);
+  $("visitDate")?.addEventListener("change", renderNextDuePreview);
   document.querySelectorAll(".pill").forEach((b) => {
     b.addEventListener("click", () => {
       $("followWeeks").value = b.dataset.weeks;
@@ -580,6 +618,12 @@ async function registerServiceWorker() {
 
   await seedIfEmpty();
   await refreshAll();
+  const vd = $("visitDate");
+if (vd && !vd.value) {
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  vd.value = dateInputFromISO(now.toISOString());
+}
   await registerServiceWorker();
 
   const label = $("lastBackupLabel");
