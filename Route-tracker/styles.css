@@ -207,6 +207,15 @@ button.danger{
   color:var(--text);
 }
 
+/* Finished-for-day button */
+button.finish-day{
+  background: rgba(22,163,74,0.18)
+  );
+  border-color: rgba(255,255,255,.25);
+  color: var(--text);
+}
+
+
 /* ---------- TEXT HELPERS ---------- */
 
 .status{margin-top:10px; color:var(--muted); font-size:13px; min-height:18px}
