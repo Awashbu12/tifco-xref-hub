@@ -422,6 +422,9 @@ function buildConfirmText() {
   lines.push(`Next due: ${nextDue ? formatDate(nextDue) : "—"}`);
   lines.push(`Sales: ${Number.isFinite(sales) ? sales.toFixed(2) : "—"}`);
   lines.push(`Notes: ${notes ? notes : "—"}`);
+  lines.push("");
+lines.push("⚠️ If this is your last stop today, remember to tap");
+lines.push("“Finished for Today” to back up your data.");
 
   return lines.join("\n");
 }
