@@ -674,6 +674,37 @@ function wireSaveVisit() {
       pendingConfirm = false;
     }
   });
+   $("finishDayBtn")?.addEventListener("click", async () => {
+  const msg =
+    "End-of-day backup\n\n" +
+    "Next, iPad will download a JSON backup file.\n\n" +
+    "IMPORTANT: Save it somewhere safe:\n" +
+    "• Tap the download (top-right) if needed\n" +
+    "• Tap Share\n" +
+    "• Save to Files → iCloud Drive\n\n" +
+    "Tap OK to download your backup.";
+
+  if (!confirm(msg)) return;
+
+  try {
+    // Make sure state is current before export
+    await refreshAll();
+
+    // Reuse the existing Data tab export logic
+    const exportBtn = $("exportJson");
+    if (!exportBtn) {
+      setStatus($("logStatus"), "Export JSON button not found (Data tab).");
+      return;
+    }
+
+    exportBtn.click();
+
+    setStatus($("logStatus"), "Backup started. Save it to Files/iCloud.");
+  } catch (err) {
+    console.error(err);
+    setStatus($("logStatus"), "Backup export failed.");
+  }
+});
 }
 
 async function seedIfEmpty() {
