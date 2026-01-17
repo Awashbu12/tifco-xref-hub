@@ -679,10 +679,10 @@ function wireSaveVisit() {
     "End-of-day backup\n\n" +
     "Next, iPad will download a JSON backup file.\n\n" +
     "IMPORTANT: Save it somewhere safe:\n" +
-    "• Tap the download (top-right) if needed\n" +
-    "• Tap Share\n" +
-    "• Save to Files → iCloud Drive\n\n" +
-    "Tap OK to download your backup.";
+    "• On the next screen, tap the Share button (top-right)\n" +
+    "• Tap Save To Files (may need to click the ... button to find)\n" +
+    "• Save to Files → create a folder and save your backups there. (recommend using iCloud drive)\n\n" +
+    
 
   if (!confirm(msg)) return;
 
