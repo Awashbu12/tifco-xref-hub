@@ -209,8 +209,7 @@ button.danger{
 
 /* Finished-for-day button */
 button.finish-day{
-  background: rgba(22,163,74,0.18)
-  );
+  background: rgba(22,163,74,0.18);
   border-color: rgba(255,255,255,.25);
   color: var(--text);
 }
