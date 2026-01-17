@@ -284,5 +284,18 @@
   </footer>
 
   <script type="module" src="app.js"></script>
+  
+  <!-- Confirm Save Modal -->
+<div id="confirmOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+  <div class="modal">
+    <h3 id="confirmTitle">Confirm visit</h3>
+    <div id="confirmSummary" class="confirm-summary"></div>
+
+    <div class="modal-actions">
+      <button id="confirmCancel" class="secondary" type="button">Cancel</button>
+      <button id="confirmSave" class="primary" type="button">Save Visit</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
