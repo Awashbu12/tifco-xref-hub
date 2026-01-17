@@ -684,7 +684,7 @@ function wireSaveVisit() {
     "IMPORTANT: Save it somewhere safe:\n" +
     "• On the next screen, tap the Share button (top-right)\n" +
     "• Tap Save To Files (may need to click the ... button to find)\n" +
-    "• Save to Files → create a folder and save your backups there. (recommend using iCloud drive)\n\n" +
+    "• Save to Files → create a folder and save your backups there. (recommend using iCloud drive)\n\n";
     
 
   if (!confirm(msg)) return;
