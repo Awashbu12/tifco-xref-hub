@@ -18,6 +18,17 @@ function formatDate(iso) {
   const d = new Date(iso);
   return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
+
+function buildLatestVisitMap() {
+  // Returns: { [customerId]: visitDateISO }
+  const map = {};
+  for (const v of (state.visits || [])) {
+    if (!v.customerId || !v.visitDate) continue;
+    const cur = map[v.customerId];
+    if (!cur || v.visitDate > cur) map[v.customerId] = v.visitDate; // ISO strings compare fine
+  }
+  return map;
+}
 function isoFromDateInput(dateStr) {
   // dateStr is "YYYY-MM-DD"
   if (!dateStr) return null;
@@ -134,6 +145,8 @@ function renderCustomerTable(filterText = "") {
     .filter((c) => c.active !== false)
     .filter((c) => !f || `${c.name} ${c.city || ""} ${c.tier || ""}`.toLowerCase().includes(f))
     .sort(sortCustomersByName);
+    
+	const latestVisit = buildLatestVisitMap();
 
   for (const c of list) {
     const tr = document.createElement("tr");
@@ -141,6 +154,8 @@ function renderCustomerTable(filterText = "") {
       <td>${escapeHtml(c.name)}</td>
       <td>${escapeHtml(c.city || "")}</td>
       <td>${escapeHtml(c.tier || "")}</td>
+        <td class="muted">
+    ${latestVisit[c.id] ? formatDate(latestVisit[c.id]) : "—"}</td>
       <td>${formatDate(c.nextDue || null)}</td>
       <td><button class="danger" data-del="${c.id}" type="button">Archive</button></td>
     `;
@@ -186,6 +201,7 @@ function renderDueTable() {
         customer: c,
         nextDue,
         days,
+        lastVisit: lv?.visitDate || null,
         lastSale: lv?.salesAmount ?? null,
         lastNotes: lv?.notes ?? "",
         city: c.city || "",
@@ -214,6 +230,7 @@ function renderDueTable() {
     tr.innerHTML = `
       <td>${escapeHtml(r.customer.name)}</td>
       <td>${escapeHtml(r.city)}</td>
+      <td class="muted">${r.lastVisit ? formatDate(r.lastVisit) : "—"}</td>
       <td>${formatDate(r.nextDue)}</td>
       <td>${r.days === null ? "—" : r.days}</td>
       <td>${r.lastSale === null || r.lastSale === "" ? "—" : Number(r.lastSale).toFixed(2)}</td>
