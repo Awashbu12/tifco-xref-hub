@@ -7,6 +7,7 @@ const state = {
   visits: [],
   dueFilter: "all",
 };
+let pendingConfirm = false;
 
 function uid(prefix = "id") {
   return `${prefix}_${crypto.randomUUID()}`;
@@ -384,6 +385,53 @@ function wireRefreshButtons() {
 
 // ---- Backup helpers (JSON + CSV + nag banner) ----
 
+function buildConfirmText() {
+  const customerId = $("customerSelect")?.value;
+  const c = state.customers.find(x => x.id === customerId);
+
+  const visitDateISO = isoFromDateInput($("visitDate")?.value);
+  const weeks = clampWeeks($("followWeeks")?.value);
+  const nextDue = visitDateISO ? computeNextDue(visitDateISO, weeks) : null;
+
+  const salesRaw = $("salesAmount")?.value;
+  const sales = salesRaw === "" ? null : Number(salesRaw);
+  const notes = ($("visitNotes")?.value || "").trim();
+
+  const lines = [];
+  lines.push(`Customer: ${c ? c.name : "—"}`);
+  if (c?.city) lines.push(`City: ${c.city}`);
+  lines.push(`Visit date: ${visitDateISO ? formatDate(visitDateISO) : "—"}`);
+  lines.push(`Follow-up: ${weeks} week(s)`);
+  lines.push(`Next due: ${nextDue ? formatDate(nextDue) : "—"}`);
+  lines.push(`Sales: ${Number.isFinite(sales) ? sales.toFixed(2) : "—"}`);
+  lines.push(`Notes: ${notes ? notes : "—"}`);
+
+  return lines.join("\n");
+}
+
+function openConfirmModal() {
+  // Basic validation so you don't confirm garbage
+  const customerId = $("customerSelect")?.value;
+  const c = state.customers.find(x => x.id === customerId);
+  if (!c) {
+    setStatus($("logStatus"), "Pick a customer first.");
+    return;
+  }
+
+  const visitDateISO = isoFromDateInput($("visitDate")?.value);
+  if (!visitDateISO) {
+    setStatus($("logStatus"), "Pick a visit date.");
+    return;
+  }
+
+  $("confirmSummary").textContent = buildConfirmText();
+  $("confirmOverlay").classList.remove("hidden");
+}
+
+function closeConfirmModal() {
+  $("confirmOverlay").classList.add("hidden");
+}
+
 function csvEscape(value) {
   const s = String(value ?? "");
   if (/[\",\n\r]/.test(s)) {
@@ -585,7 +633,30 @@ function wireDataTools() {
 }
 
 function wireSaveVisit() {
-  $("saveVisit").addEventListener("click", saveVisit);
+  $("saveVisit").addEventListener("click", () => {
+    if (pendingConfirm) return;
+    openConfirmModal();
+  });
+
+  $("confirmCancel")?.addEventListener("click", () => {
+    closeConfirmModal();
+  });
+
+  $("confirmOverlay")?.addEventListener("click", (e) => {
+    // Click outside modal closes it
+    if (e.target && e.target.id === "confirmOverlay") closeConfirmModal();
+  });
+
+  $("confirmSave")?.addEventListener("click", async () => {
+    if (pendingConfirm) return;
+    pendingConfirm = true;
+    try {
+      await saveVisit();
+      closeConfirmModal();
+    } finally {
+      pendingConfirm = false;
+    }
+  });
 }
 
 async function seedIfEmpty() {
