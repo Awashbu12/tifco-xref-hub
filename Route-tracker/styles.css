@@ -13,6 +13,10 @@
 
   --danger:#d43a3a;
 
+  /* Success (Finished for Today) */
+  --success:#22c55e;
+  --success-soft:rgba(34,197,94,.22);
+
   --chip:#eef2f7;
   --surface:#f9fafb;          /* inputs, tabs, table bg */
   --surface-2:#ffffff;        /* sticky table header bg */
@@ -41,6 +45,10 @@
 
     --header-bg:rgba(2,6,23,.80);
     --overlay:rgba(0,0,0,.65);
+
+    /* Success (Finished for Today) */
+    --success:#4ade80;
+    --success-soft:rgba(74,222,128,.22);
   }
 }
 
@@ -207,13 +215,12 @@ button.danger{
   color:var(--text);
 }
 
-/* Finished-for-day button */
+/* Finished-for-day button (theme-aware green, no hover/active rules) */
 button.finish-day{
-  background: rgba(34,197,94,0.12);
-  border-color: rgba(255,255,255,.25);
-  color: var(--text);
+  background: var(--success-soft);
+  border-color: var(--success);
+  color: var(--success);
 }
-
 
 /* ---------- TEXT HELPERS ---------- */
 
