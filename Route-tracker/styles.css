@@ -210,3 +210,44 @@ details summary{cursor:pointer; color:var(--text)}
   gap:10px;
   flex-wrap:wrap;
 }
+/* Confirm modal */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  z-index:50;
+}
+.overlay.hidden{display:none}
+
+.modal{
+  width:min(560px, 100%);
+  background:rgba(17,26,46,.98);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.5);
+}
+
+.confirm-summary{
+  margin-top:10px;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#0c1428;
+  color:var(--text);
+  font-size:13px;
+  line-height:1.35;
+  white-space:pre-wrap;
+}
+
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:12px;
+  flex-wrap:wrap;
+}
