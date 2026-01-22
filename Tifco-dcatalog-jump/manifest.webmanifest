@@ -1,0 +1,9 @@
+{
+  "name": "Tifco Catalog Jump",
+  "short_name": "Catalog Jump",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#0b5fff",
+  "icons": []
+}
